@@ -756,3 +756,27 @@ input:focus, textarea:focus{
 .form select:invalid {
   color: rgba(183,194,224,.75);
 }
+
+/* =========================
+   Agendar whatsapp
+   ========================= */
+
+.link-img {
+  display: inline-flex;      /* coloca imagem + texto alinhados */
+  align-items: center;       /* centraliza verticalmente */
+  gap: 8px;                  /* espaço entre imagem e texto */
+  text-decoration: none;     /* remove underline */
+  color: #eaf0ff;            /* cor do seu tema */
+  font-weight: 600;
+}
+
+.link-img img {
+  width: 22px;               /* ajuste ao tamanho desejado */
+  height: 22px;
+  object-fit: contain;
+}
+
+.link-img:hover {
+  opacity: 0.8;              /* efeito hover bonito */
+}
+
