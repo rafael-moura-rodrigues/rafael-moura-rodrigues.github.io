@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="Site médico responsivo: hero, formação, tratamentos e contato." />
-  <title>Dra. Suelen Souza • Psicóloga</title>
+  <title>Suelen Souza • Psicóloga</title>
 
   <!-- Fonte (opcional) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +23,7 @@
       <a class="brand" href="#">
         <span class="brand-mark" aria-hidden="true">HS</span>
         <span class="brand-text">
-          <strong>Dra. Suelen Souza</strong>
+          <strong>Suelen Souza</strong>
           <small>Psicóloga</small>
         </span>
       </a>
@@ -230,11 +230,10 @@
     </section>
 
     <!-- CONTATO -->
-    <section class="section" id="contato">
+    <!-- <section class="section" id="contato">
       <div class="container">
         <div class="section-head">
           <h2>Contato e agendamento</h2>
-          <p>Formulário responsivo (sem quebrar no mobile).</p>
         </div>
 
         <div class="contact-grid">
@@ -268,7 +267,53 @@
                 Dica: depois você integra com Formspree, backend próprio ou WhatsApp link.
               </p>
             </form>
-          </section>
+          </section> -->
+
+
+<section class="section" id="contato">
+    <div class="container">
+        <div class="section-head">
+          <h2>Agendar pelo WhatsApp</h2>
+        </div>
+    <div class="contact-grid">
+      <section class="card">
+        <form id="formWhats" class="form">
+          <label>
+            Nome
+            <input type="text" id="nome" required placeholder="Seu nome">
+          </label>
+
+          <label>
+            Telefone/WhatsApp
+            <input type="tel" id="telefone" required placeholder="(31) 99999-9999">
+          </label>
+
+          <label>
+            Assunto
+            <select id="assunto">
+              <option value="Consulta">Consulta</option>
+              <option value="Cirurgia">Cirurgia</option>
+              <option value="Dúvidas">Dúvidas</option>
+              <option value="Retorno">Retorno</option>
+            </select>
+          </label>
+
+          <label>
+            Mensagem
+            <textarea id="mensagem" rows="4" placeholder="Conte um pouco sobre sua necessidade..."></textarea>
+          </label>
+
+          <button type="submit" class="btn primary">
+            Enviar no WhatsApp
+          </button>
+
+          <p class="muted small-text">
+            Ao clicar, abriremos o WhatsApp com sua mensagem preenchida.
+          </p>
+        </form>
+        </section>
+
+
 
           <aside class="card flat">
             <h3>Informações</h3>
@@ -293,7 +338,6 @@
               <a href="https://wa.me/5561983220161">https://wa.me/5561983220161</a>
             </div>
 
-
             <div class="map-responsive">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3838.3519241086756!2d-48.03538042394928!3d-15.838090324034415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a3266700dd5d3%3A0x48cfdc178abeac67!2sOne%20Park%20Mall!5e0!3m2!1spt-BR!2sbr!4v1770122859372!5m2!1spt-BR!2sbr"
@@ -301,7 +345,8 @@
                 loading="lazy">
               </iframe>
             </div>
-            
+
+
           </aside>
         </div>
       </div>
@@ -311,7 +356,7 @@
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© <span id="year"></span> • Dr. Nome Sobrenome</p>
+      <p>© <span id="year"></span> • Suelen Souza</p>
       <div class="footer-links">
         <a href="#curriculo">Currículo</a>
         <a href="#tratamentos">Tratamentos</a>
@@ -371,6 +416,43 @@
         btn.setAttribute('aria-expanded', 'false');
       }
     });
+
+
+  const WHATSAPP_NUMBER = "5561983220161"; // <-- troque pelo seu número (DDI+DDD+Número)
+
+  function sanitizePhoneBR(input) {
+    // remove tudo que não é número
+    return (input || "").replace(/\D/g, "");
+  }
+
+  document.getElementById("formWhats").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value.trim();
+    const telefone = document.getElementById("telefone").value.trim();
+    const assunto = document.getElementById("assunto").value;
+    const mensagem = document.getElementById("mensagem").value.trim();
+
+    if (!nome || !telefone) {
+      alert("Por favor, preencha Nome e Telefone.");
+      return;
+    }
+
+    const telLimpo = sanitizePhoneBR(telefone);
+
+    // Monta a mensagem (quebras de linha funcionam bem)
+    const texto =
+      `Olá! Gostaria de agendar.\n\n` +
+      `*Nome:* ${nome}\n` +
+      `*Telefone:* ${telLimpo}\n` +
+      `*Assunto:* ${assunto}\n` +
+      (mensagem ? `*Mensagem:* ${mensagem}\n` : "") +
+      `\nEnviado pelo site.`;
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
+    window.open(url, "_blank");
+  });
+
   </script>
 </body>
 </html>
